@@ -1,0 +1,19 @@
+{
+  "name": "to-do-users",
+  "version": "1.0.0",
+  "description": "Lista To Do com registro de usuarios",
+  "start": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "start": "node app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mongoose": "^8.5.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.3"
+  }
+}
