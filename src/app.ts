@@ -1,22 +1,14 @@
-
-
-import express,{Request,Response, Router} from "express"
-const app = express()
+import express from "express";
 import path from "path";
-const PORT = 3000
+import Routes from "./Routes/Routes"
 
-import router from "./Routes/Routes";
+const app = express();
+const PORT = 3000;
 
-app.use(express.static(path.join(__dirname,'..', 'public')));
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
-app.get('/Menu',(req : Request,res : Response) =>{
-    res.sendFile(path.join(__dirname, '..','public', 'Menu.html'));
-})
+app.use('/', Routes);
 
-app.use('/',router)
-
-
-app.listen(PORT,() =>{
-    console.log(`Server is Running on ${PORT}`)
-})
-
+app.listen(PORT, () => {
+    console.log(`Server is Running on ${PORT}`);
+});
