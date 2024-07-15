@@ -22,21 +22,17 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importStar(require("express"));
-const path_1 = __importDefault(require("path"));
 const app = (0, express_1.default)();
 const router = (0, express_1.Router)();
-const MenuRouter = router.get('/Menu', (req, res) => {
-    try {
-        res.sendFile(path_1.default.join(__dirname, '../../public', 'Menu.html'));
-    }
-    catch (error) {
-        console.log(error);
-        res.status(500).send("An error occurred");
-    }
-});
+// const MenuRouter = router.get('/Menu', (req : Request, res : Response) =>{
+//     try{
+//         const filePath = path.join(path.join(__dirname, 'views', 'index.html'));
+//         res.sendFile(filePath);
+//     }catch(error){
+//         console.log(error);
+//         res.status(500).send("An error occurred");
+//     }
+// })
 exports.default = router;
