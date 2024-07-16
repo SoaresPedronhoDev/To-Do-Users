@@ -9,7 +9,7 @@ const Routes_1 = __importDefault(require("./Routes/Routes"));
 const app = (0, express_1.default)();
 const PORT = 3000;
 app.use(express_1.default.static(path_1.default.join(__dirname, '..', 'public')));
-app.use('/', Routes_1.default);
+app.use('/Menu', Routes_1.default);
 app.listen(PORT, () => {
     console.log(`Server is Running on ${PORT}`);
 });

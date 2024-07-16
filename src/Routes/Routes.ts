@@ -4,7 +4,9 @@ import Controller from "../Controller/Controller";
 const router: Router = express.Router();
 
 
-router.get("/Menu", Controller.Menu);
+router.get("/", Controller.Menu);
+
+router.get("/Register", Controller.Register)
 
 export default router;
 

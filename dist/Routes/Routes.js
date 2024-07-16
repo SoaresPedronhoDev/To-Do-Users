@@ -6,5 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const Controller_1 = __importDefault(require("../Controller/Controller"));
 const router = express_1.default.Router();
-router.get("/Menu", Controller_1.default.Menu);
+router.get("/", Controller_1.default.Menu);
+router.get("/Register", Controller_1.default.Register);
 exports.default = router;

@@ -291,7 +291,7 @@
                 <p>Faca Login no Sistema</p>
             </div>
             <div class="NovoUsuario">
-                <button onclick="Register()" class="btn">Nao Possuo conta</button>
+                <button id="registerButton" class="btn">Nao Possuo conta</button>
                 <hr>
             </div>
             <div class="login-box">
@@ -316,7 +316,6 @@
         <div class="cursor"></div>
     </div>
 
-    <script src="../src/app.ts"></script>
     <script>
         const cursor = document.querySelector('.cursor');
         const loginBox = document.querySelector('.login-box');
@@ -333,6 +332,11 @@
         loginBox.addEventListener('mouseleave', () => {
             cursor.classList.remove('white');
         });
+
+        document.getElementById('registerButton').addEventListener('click', function() {
+            window.location.href = '/Menu/Register';
+        });
+        
     </script>
 </body>
 </html>

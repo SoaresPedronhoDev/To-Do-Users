@@ -5,8 +5,8 @@ const Menu = (req: Request, res: Response) => {
     res.sendFile(path.join(__dirname, '..','..', 'public', 'Menu.html'));
 };
 
-const register = (req: Request, res: Response) => {
-    // Implementation of the register function
+const Register = (req: Request, res: Response) => {
+    res.sendFile(path.join(__dirname, '..','..', 'public', 'Register.html'));
 };
 
-export default { Menu };
+export default { Menu, Register };

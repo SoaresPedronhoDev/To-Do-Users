@@ -7,7 +7,7 @@ const path_1 = __importDefault(require("path"));
 const Menu = (req, res) => {
     res.sendFile(path_1.default.join(__dirname, '..', '..', 'public', 'Menu.html'));
 };
-const register = (req, res) => {
-    // Implementation of the register function
+const Register = (req, res) => {
+    res.sendFile(path_1.default.join(__dirname, '..', '..', 'public', 'Register.html'));
 };
-exports.default = { Menu };
+exports.default = { Menu, Register };

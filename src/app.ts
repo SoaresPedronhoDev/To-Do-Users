@@ -7,7 +7,7 @@ const PORT = 3000;
 
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
-app.use('/', Routes);
+app.use('/Menu', Routes);
 
 app.listen(PORT, () => {
     console.log(`Server is Running on ${PORT}`);
