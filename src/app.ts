@@ -1,14 +1,32 @@
-import express from "express";
-import path from "path";
-import Routes from "./Routes/Routes"
+
+import express from 'express';
+import path from 'path';
+import mongoose from 'mongoose';
+import router from './Routes/Routes';
+import bodyParser from 'body-parser';
 
 const app = express();
-const PORT = 3000;
+const PORT = 3000; 
 
 app.use(express.static(path.join(__dirname, '..', 'public')));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json()); 
+app.use('/Menu', router);
 
-app.use('/Menu', Routes);
+
+
+async function run() {
+    try {
+        await mongoose.connect('mongodb://127.0.0.1:27017/test', {
+        });
+        console.log('Connected to MongoDB');
+    } catch (err) {
+        console.log('Failed to connect to MongoDB', err);
+    }
+}
+
+run();
 
 app.listen(PORT, () => {
-    console.log(`Server is Running on ${PORT}`);
+    console.log(`Server is running on port ${PORT}`);
 });
