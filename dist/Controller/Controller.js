@@ -33,6 +33,7 @@ const RegisterUser = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         const newUser = yield user.save();
         res.status(201).json(newUser);
         console.log("deu certo dog");
+        res.sendFile(path_1.default.join(__dirname, '..', '..', 'public', 'Menu.html'));
     }
     catch (error) {
         console.error(error);
