@@ -8,5 +8,6 @@ const Controller_1 = __importDefault(require("../Controller/Controller"));
 const router = express_1.default.Router();
 router.get("/", Controller_1.default.Menu);
 router.get("/Register", Controller_1.default.Register);
+router.get("/ToDoList", Controller_1.default.UserPage);
 router.post("/Register", express_1.default.urlencoded({ extended: true }), Controller_1.default.RegisterUser);
 exports.default = router;

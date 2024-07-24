@@ -33,11 +33,14 @@ const RegisterUser = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         const newUser = yield user.save();
         res.status(201).json(newUser);
         console.log("deu certo dog");
-        res.sendFile(path_1.default.join(__dirname, '..', '..', 'public', 'Menu.html'));
+        // res.sendFile(path.join(__dirname, '..', '..', 'public', 'Menu.html'));
     }
     catch (error) {
         console.error(error);
         res.render('index', { error, body: req.body });
     }
 });
-exports.default = { Menu, Register, RegisterUser };
+const UserPage = (req, res) => {
+    res.sendFile(path_1.default.join(__dirname, '..', '..', 'public', 'UserPage.html'));
+};
+exports.default = { Menu, Register, RegisterUser, UserPage };

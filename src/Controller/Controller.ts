@@ -32,6 +32,10 @@ const RegisterUser = async (req: Request, res: Response) => {
     }
 };
 
+const UserPage = (req : Request, res : Response) =>{
+    res.sendFile(path.join(__dirname, '..', '..', 'public', 'UserPage.html'));
+}
 
 
-export default {Menu,Register,RegisterUser}
+
+export default {Menu,Register,RegisterUser,UserPage}

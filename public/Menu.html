@@ -305,7 +305,7 @@
                         <label>Senha</label>
                     </div>
                     <center>
-                        <a href="#">
+                        <a id="sendButton" href="#">
                             SEND
                             <span></span>
                         </a>
@@ -336,6 +336,10 @@
         document.getElementById('registerButton').addEventListener('click', function() {
             window.location.href = '/Menu/Register';
         });
+
+        document.getElementById('sendButton').addEventListener('click',() =>{
+            window.location.href = '/Menu/ToDoList'
+        })
         
     </script>
 </body>

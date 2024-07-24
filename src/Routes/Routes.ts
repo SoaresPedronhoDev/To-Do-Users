@@ -7,6 +7,7 @@ const router: Router = express.Router();
 router.get("/", Controller.Menu);
 
 router.get("/Register", Controller.Register)
+router.get("/ToDoList",Controller.UserPage)
 router.post("/Register",express.urlencoded({extended : true}),Controller.RegisterUser)
 
 export default router;
