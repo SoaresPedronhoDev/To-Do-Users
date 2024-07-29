@@ -23,6 +23,8 @@ app.use(express_1.default.static(path_1.default.join(__dirname, '..', 'public'))
 app.use(body_parser_1.default.urlencoded({ extended: true }));
 app.use(express_1.default.json());
 app.use('/Menu', Routes_1.default);
+app.set('view engine', 'ejs');
+app.set('views', path_1.default.join(__dirname, '..', 'views'));
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {

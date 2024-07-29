@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const path_1 = __importDefault(require("path"));
 const Users_1 = __importDefault(require("../Models/Users"));
+const Validate_1 = __importDefault(require("./Validate")); // Atualize o caminho se necessário
 const router = (0, express_1.Router)();
 const Menu = (req, res) => {
     res.sendFile(path_1.default.join(__dirname, '..', '..', 'public', 'Menu.html'));
@@ -23,24 +24,36 @@ const Register = (req, res) => {
     res.sendFile(path_1.default.join(__dirname, '..', '..', 'public', 'Register.html'));
 };
 const RegisterUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { error } = Validate_1.default.registerValidate(req.body);
+    if (error) {
+        return res.status(400).json({ message: error.message });
+    }
+    const selectedUser = yield Users_1.default.findOne({ email: req.body.email });
+    if (selectedUser) {
+        return res.status(400).json({ message: 'This email already exists' });
+    }
+    const user = new Users_1.default({
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password,
+        items: req.body.items
+    });
     try {
-        const user = new Users_1.default({
-            name: req.body.name,
-            email: req.body.email,
-            password: req.body.password,
-            items: req.body.items
-        });
         const newUser = yield user.save();
         res.status(201).json(newUser);
-        console.log("deu certo dog");
-        // res.sendFile(path.join(__dirname, '..', '..', 'public', 'Menu.html'));
     }
     catch (error) {
         console.error(error);
-        res.render('index', { error, body: req.body });
+        res.status(500).json({ message: 'Internal server error', error });
     }
 });
 const UserPage = (req, res) => {
-    res.sendFile(path_1.default.join(__dirname, '..', '..', 'public', 'UserPage.html'));
+    const username = req.body.name;
+    const filePath = path_1.default.join(__dirname, '..', '..', 'public', 'views', 'UserPage.ejs');
+    res.sendFile(filePath, (err) => {
+        if (err) {
+            res.status(404).send('User page not found');
+        }
+    });
 };
 exports.default = { Menu, Register, RegisterUser, UserPage };
