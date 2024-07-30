@@ -5,10 +5,14 @@ const router: Router = express.Router();
 
 
 router.get("/", Controller.Menu);
+router.post("/",express.urlencoded({extended : true}),Controller.loginUser)
 
 router.get("/Register", Controller.Register)
-router.get("/ToDoList/:name",Controller.UserPage)
 router.post("/Register",express.urlencoded({extended : true}),Controller.RegisterUser)
+
+router.get("/ToDoList/:name",Controller.UserPage)
+
+
 
 export default router;
 
