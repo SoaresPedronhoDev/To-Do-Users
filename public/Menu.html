@@ -295,7 +295,7 @@
                 <hr>
             </div>
             <div class="login-box">
-                <form>
+                <form id="loginform" method="post">
                     <div class="user-box">
                         <input type="text" name="email" required="">
                         <label>Email</label>
@@ -317,62 +317,62 @@
     </div>
 
     <script>
-        const cursor = document.querySelector('.cursor');
+             const cursor = document.querySelector('.cursor');
         const loginBox = document.querySelector('.login-box');
-    
+
         document.addEventListener('mousemove', (e) => {
-          cursor.style.left = e.clientX + 'px';
-          cursor.style.top = e.clientY + 'px';
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
         });
-    
+
         loginBox.addEventListener('mouseenter', () => {
-          cursor.classList.add('white');
+            cursor.classList.add('white');
         });
-    
+
         loginBox.addEventListener('mouseleave', () => {
-          cursor.classList.remove('white');
+            cursor.classList.remove('white');
         });
-    
+
         document.getElementById('registerButton').addEventListener('click', function() {
-          window.location.href = '/Menu/Register';
+            window.location.href = '/Menu/Register';
         });
-    
-        document.getElementById('sendButton').addEventListener('submit', Submit);
-    
+
+        document.getElementById('loginForm').addEventListener('submit', Submit);
+
         async function Submit(event) {
-          event.preventDefault();
-    
-          const form = event.target;
-          const formData = new FormData(form);
-    
-          const data = {
-            email: formData.get('email'),
-            password: formData.get('password')
-          };
-    
-          try {
-            const response = await fetch('/Menu', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify(data)
-            });
-    
-            if (response.ok) {
-              const result = await response.json();
-              console.log('Login successful:', result);
-              alert("Conta Acessada com Sucesso!");
-              window.location.href = '/Menu';
-            } else {
-              const errorResult = await response.json();
-              console.error('Error logging in:', errorResult.message || response.statusText);
-              alert('Erro ao encontrar conta: ' + (errorResult.message || response.statusText));
+            event.preventDefault();
+
+            const form = event.target;
+            const formData = new FormData(form);
+
+            const data = {
+                email: formData.get('email'),
+                password: formData.get('password')
+            };
+
+            try {
+                const response = await fetch('/Menu', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    console.log('Login successful:', result);
+                    alert("Conta Acessada com Sucesso!");
+                    window.location.href = '/Menu';
+                } else {
+                    const errorResult = await response.json();
+                    console.error('Error logging in:', errorResult.message || response.statusText);
+                    alert('Erro ao encontrar conta: ' + (errorResult.message || response.statusText));
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Erro ao encontrar conta');
             }
-          } catch (error) {
-            console.error('Error:', error);
-            alert('Erro ao encontrar conta');
-          }
         }
       </script>
 </body>
