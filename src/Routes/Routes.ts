@@ -10,6 +10,8 @@ router.post("/",express.urlencoded({extended : true}),Controller.loginUser)
 router.get("/Register", Controller.Register)
 router.post("/Register",express.urlencoded({extended : true}),Controller.RegisterUser)
 
+router.get("/ToDo/:name",Controller.UserPage)
+
 router.get("/ToDoList/:name",Controller.UserPage)
 
 

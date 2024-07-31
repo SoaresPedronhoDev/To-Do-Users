@@ -27,7 +27,7 @@ const loginUser = async (req: Request, res: Response) => {
             return res.status(400).json({ message: 'Senha incorreta' });
         }
 
-        res.status(200).json({ message: 'Login bem-sucedido', user });
+        res.redirect(`/Menu/ToDo/${user.name}`);
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Erro interno do servidor', error });
@@ -65,16 +65,20 @@ const RegisterUser = async (req: Request, res: Response) => {
     }
 };
 
-const UserPage = (req: Request, res: Response) => {
+const UserPage = async(req: Request, res: Response) => {
     const { name } = req.params;
 
-    const filePath = path.join(__dirname, '..', '..', 'public', 'views', 'UserPage.ejs');
-
-    res.sendFile(filePath, (err) => {
-        if (err) {
-            res.status(404).send('Página do usuário não encontrada');
+    try {
+        const user = await User.findOne({ name });
+        if (!user) {
+            return res.status(404).send('Usuário não encontrado');
         }
-    });
+
+        res.render('userPage', { user });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Erro interno do servidor');
+    }
 };
 
 export default { Menu, Register, RegisterUser, UserPage, loginUser };

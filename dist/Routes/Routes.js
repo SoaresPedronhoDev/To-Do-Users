@@ -10,5 +10,6 @@ router.get("/", Controller_1.default.Menu);
 router.post("/", express_1.default.urlencoded({ extended: true }), Controller_1.default.loginUser);
 router.get("/Register", Controller_1.default.Register);
 router.post("/Register", express_1.default.urlencoded({ extended: true }), Controller_1.default.RegisterUser);
+router.get("/ToDo/:name", Controller_1.default.UserPage);
 router.get("/ToDoList/:name", Controller_1.default.UserPage);
 exports.default = router;

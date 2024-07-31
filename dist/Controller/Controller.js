@@ -34,7 +34,7 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         if (!validPassword) {
             return res.status(400).json({ message: 'Senha incorreta' });
         }
-        res.status(200).json({ message: 'Login bem-sucedido', user });
+        res.redirect(`/Menu/ToDo/${user.name}`);
     }
     catch (error) {
         console.error(error);
@@ -68,13 +68,18 @@ const RegisterUser = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         res.status(500).json({ message: 'Erro interno do servidor', error });
     }
 });
-const UserPage = (req, res) => {
+const UserPage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { name } = req.params;
-    const filePath = path_1.default.join(__dirname, '..', '..', 'public', 'views', 'UserPage.ejs');
-    res.sendFile(filePath, (err) => {
-        if (err) {
-            res.status(404).send('Página do usuário não encontrada');
+    try {
+        const user = yield Users_1.default.findOne({ name });
+        if (!user) {
+            return res.status(404).send('Usuário não encontrado');
         }
-    });
-};
+        res.render('userPage', { user });
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).send('Erro interno do servidor');
+    }
+});
 exports.default = { Menu, Register, RegisterUser, UserPage, loginUser };
