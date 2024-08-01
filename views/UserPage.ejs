@@ -5,12 +5,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>To Do List</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Sora:wght@100..800&display=swap" rel="stylesheet">
+    <style>
+        *,body{
+            margin: 0;
+            padding: 0;
+        }
+
+        .container-transition{
+            width: 100%;
+            height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+
+            font-family: 'Sora', Arial, Helvetica, sans-serif;
+            font-size: 30px;
+        }
+
+        @keyframes increaseFontSize {
+            0% {
+                font-size: 20px;
+                opacity: 1;
+                display: flex;
+            }
+            100% {
+                font-size: 40px;
+                opacity: 0;
+                display: none;
+            }
+        }
+
+        .animate-font-size {
+            animation: increaseFontSize 5s forwards;
+        }
+
+    </style>
 </head>
 <body>
     
 
-    <h1>Está tudo ok, <%= user.name %></h1>
+    <div class="container-transition animate-font-size">
+        <p>Seja Bem Vindo(a), <%= user.name %></p>
+    </div>
 
 </body>
 </html>

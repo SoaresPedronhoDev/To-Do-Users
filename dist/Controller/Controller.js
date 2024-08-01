@@ -23,22 +23,22 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
     const { error } = Validate_1.default.loginValidate(req.body);
     if (error) {
-        return res.status(400).json({ message: error.message });
+        return res.status(400).json({ alert: error.message });
     }
     try {
         const user = yield Users_1.default.findOne({ email });
         if (!user) {
-            return res.status(400).json({ message: 'Usuário não encontrado' });
+            return res.status(400).json({ alert: 'Usuário não encontrado' });
         }
         const validPassword = yield bcryptjs_1.default.compare(password, user.password);
         if (!validPassword) {
-            return res.status(400).json({ message: 'Senha incorreta' });
+            return res.status(400).json({ alert: 'Senha Incorreta' });
         }
         res.redirect(`/Menu/ToDo/${user.name}`);
     }
     catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Erro interno do servidor', error });
+        return res.status(500).json({ alert: 'Erro Interno do Servidor' });
     }
 });
 const Register = (req, res) => {
