@@ -1,20 +1,20 @@
 import { Schema, model, Document } from 'mongoose';
 
 interface IItem {
-    name: string;
-    quantity: number;
+    text: string;
+    done: boolean;
 }
 
 interface IUser extends Document {
     name: string;
     email: string;
     password: string;
-    items: IItem[]; 
+    items: IItem[];
 }
 
 const itemSchema = new Schema<IItem>({
-    name: { type: String, required: true },
-    quantity: { type: Number, required: true }
+    text: { type: String, required: true },
+    done: { type: Boolean, default: false }
 });
 
 const userSchema = new Schema<IUser>({
