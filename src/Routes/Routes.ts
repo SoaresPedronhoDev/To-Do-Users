@@ -12,8 +12,7 @@ router.post("/Register",express.urlencoded({extended : true}),Controller.Registe
 
 router.get("/ToDo/:name",Controller.UserPage)
 
-router.get("/ToDoList/:name",Controller.UserPage)
-
+router.post('/ToDo/:name', Controller.addItem);
 
 
 export default router;

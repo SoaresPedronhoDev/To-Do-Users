@@ -82,4 +82,21 @@ const UserPage = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.status(500).send('Erro interno do servidor');
     }
 });
-exports.default = { Menu, Register, RegisterUser, UserPage, loginUser };
+const addItem = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const username = req.params.name;
+        const { task, description } = req.body;
+        const user = yield Users_1.default.findOne({ name: username });
+        if (!user) {
+            return res.status(404).send('Usuário não encontrado');
+        }
+        user.items.push({ text: task, description: description, done: false });
+        yield user.save();
+        res.redirect(`/Menu/ToDo/${username}`);
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).send('Erro ao adicionar item');
+    }
+});
+exports.default = { Menu, Register, RegisterUser, UserPage, loginUser, addItem };

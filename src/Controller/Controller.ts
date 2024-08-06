@@ -80,4 +80,26 @@ const UserPage = async(req: Request, res: Response) => {
     }
 };
 
-export default { Menu, Register, RegisterUser, UserPage, loginUser };
+const addItem = async (req: Request, res: Response) => {
+    try {
+        const username = req.params.name;  
+
+        const { task, description } = req.body;
+
+        const user = await User.findOne({ name: username });
+
+        if (!user) {
+            return res.status(404).send('Usuário não encontrado');
+        }
+        user.items.push({ text: task,description : description, done: false });
+
+        await user.save();
+
+        res.redirect(`/Menu/ToDo/${username}`);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Erro ao adicionar item');
+    }
+};
+
+export default { Menu, Register, RegisterUser, UserPage, loginUser,addItem };

@@ -2,7 +2,8 @@ import { Schema, model, Document } from 'mongoose';
 
 interface IItem {
     text: string;
-    done: boolean;
+    description : string;
+    done?: boolean;
 }
 
 interface IUser extends Document {
@@ -14,6 +15,7 @@ interface IUser extends Document {
 
 const itemSchema = new Schema<IItem>({
     text: { type: String, required: true },
+    description : {type : String, required : true},
     done: { type: Boolean, default: false }
 });
 
@@ -21,7 +23,7 @@ const userSchema = new Schema<IUser>({
     name: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
-    items: { type: [itemSchema], default: [] }
+    items: { type: [itemSchema], default: [] }  // Campo de items que referencia itemSchema
 });
 
 const User = model<IUser>('User', userSchema);

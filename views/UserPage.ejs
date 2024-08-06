@@ -10,20 +10,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Sora:wght@100..800&display=swap" rel="stylesheet">
     <style>
-        *,body{
+        *, body {
             margin: 0;
             padding: 0;
         }
 
-        .container-transition{
+        .container-transition {
             width: 100%;
             height: 100vh;
-
             display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
-
             font-family: 'Sora', Arial, Helvetica, sans-serif;
             font-size: 30px;
         }
@@ -50,45 +48,231 @@
             animation: increaseFontSize 5s forwards;
         }
 
-        .container{
+        .container {
             width: 100%;
             height: 100vh;
-
             display: flex;
+            flex-direction: column;
             justify-content: center;
-            /* align-items: center; */
             text-align: center;
-
             font-family: 'Sora', Arial, Helvetica, sans-serif;
             font-size: 30px;
         }
 
-        .header{
+        .header {
             display: flex;
-            justify-content:space-between;
-
+            justify-content: space-around;
             font-size: 25px;
-
-            /* height: 30%; */
-            width: 80%;
-            margin-top:40px;
+            height: 30%;
+            width: 100%;
+            margin-top: 40px;
         }
 
+        .form-container {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 30%;
+            background: linear-gradient(#212121, #212121) padding-box,
+                        linear-gradient(145deg, transparent 35%, #e81cff, #40c9ff) border-box;
+            border: 2px solid transparent;
+            padding: 32px 24px;
+            font-size: 14px;
+            font-family: inherit;
+            color: white;
+            gap: 20px;
+            box-sizing: border-box;
+            border-radius: 16px;
+            z-index: 1000; 
+                }
+
+        .form-container button:active {
+            scale: 0.95;
+        }
+
+        .form-container .form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-container .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #717171;
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        .form-container .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 8px;
+            color: #fff;
+            font-family: inherit;
+            background-color: transparent;
+            border: 1px solid #414141;
+        }
+
+        .form-container .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 8px;
+            resize: none;
+            color: #fff;
+            height: 96px;
+            border: 1px solid #414141;
+            background-color: transparent;
+            font-family: inherit;
+        }
+
+        .form-container .form-group input::placeholder {
+            opacity: 0.5;
+        }
+
+        .form-container .form-group input:focus {
+            outline: none;
+            border-color: #e81cff;
+        }
+
+        .form-container .form-group textarea:focus {
+            outline: none;
+            border-color: #e81cff;
+        }
+
+        .form-container .form-submit-btn {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            align-self: flex-start;
+            font-family: inherit;
+            color: #717171;
+            font-weight: 600;
+            width: 40%;
+            background: #313131;
+            border: 1px solid #414141;
+            padding: 12px 16px;
+            font-size: inherit;
+            gap: 8px;
+            margin-top: 8px;
+            cursor: pointer;
+            border-radius: 6px;
+        }
+
+
+        .form-container .form-submit-btn:hover {
+            background-color: #fff;
+            border-color: #fff;
+        }
+
+        .items {
+            display: flex;
+            width: 100%;
+            height: 90vh;
+        }
+
+        .butonAdd {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .butonAdd button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        .butonAdd > button > img {
+            width: 40px;
+            height: 40px;
+        }
     </style>
 </head>
 <body>
-    
-<!-- 
-    <div class="container-transition animate-font-size">
-        <p>Seja Bem Vindo(a), <%= user.name %></p>
-    </div> -->
-
     <div class="container">
         <div class="header">
             <p>Suas Tarefas</p>
             <p><%= user.name %></p>
         </div>
+
+        <div class="items">
+            <div id="boards-container"></div>
+        </div>
+
+        <div id="form-container" class="form-container">
+            <form class="form" method="post">
+              <div class="form-group">
+                <label for="task">Tarefa</label>
+                <input type="text" id="task" name="task" required="">
+              </div>
+              <div class="form-group">
+                <label for="textarea">Descricao da Tarefa</label>
+                <textarea name="description" id="textarea" rows="10" cols="50" required=""></textarea>
+              </div>
+              <button class="form-submit-btn" type="submit">Submit</button>
+            </form>
+          </div>
+
+        <div class="butonAdd">
+            <button onclick="Adicionar()" type="button"><img src="/images/plusIcon.png" alt="Adicionar Tarefa"></button>
+        </div>
     </div>
 
+    <script>
+        function Adicionar() {
+            const formContainer = document.getElementById('form-container');
+            formContainer.style.display = 'flex';
+            document.body.classList.add('blur-background');
+            formContainer.classList.add('animation-form');
+        }
+
+        function closeForm() {
+            document.getElementById('form-container').style.display = 'none';
+            document.body.classList.remove('blur-background');
+        }
+
+        function handleSubmit(event) {
+            event.preventDefault(); // Previne o envio padrão do formulário
+
+            const task = document.getElementById('task').value;
+            const description = document.getElementById('textarea').value;
+
+            fetch('/add-task', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ task, description }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    addTaskToDOM(data.task);
+                    closeForm();
+                } else {
+                    console.error('Failed to add task:', data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        function addTaskToDOM(task) {
+            const itemsContainer = document.getElementById('items-container');
+            const newTaskElement = document.createElement('div');
+            newTaskElement.classList.add('task-card');
+            newTaskElement.innerHTML = `
+                <h3>${task.text}</h3>
+                <p>${task.description}</p>
+            `;
+            itemsContainer.appendChild(newTaskElement);
+        }
+
+    </script>
 </body>
 </html>
